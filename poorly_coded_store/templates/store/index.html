@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Amadon</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Amadon Store!</h1>
+        <div id="table">
+            <table id='table_head'>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in all_products %}
+                    <tr>
+                        <form action="/process" method="post">
+                            {% csrf_token %}
+                            <td>{{product.description}}</td>
+                            <td><input type="hidden" name='id' value="{{product.id}}">{{product.price}}</td>
+                            <td><select name="quantity">
+                                <option value="1">1</option>              
+                                <option value="2">2</option>              
+                                <option value="3">3</option>              
+                            </select></td>
+                            <td><input type="submit" value="Buy!"></td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
